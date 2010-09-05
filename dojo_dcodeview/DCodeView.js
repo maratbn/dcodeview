@@ -59,19 +59,18 @@ dojo.declare(
 
                                 var arrOutputLines = [], arrOutputCode = [];
                                 for (var i = 0; i < arrLinesCode.length; i++) {
+                                    arrOutputLines.push("<span>");
                                     arrOutputLines.push(i);
+                                    arrOutputLines.push("</span>");
+                                    arrOutputLines.push("<br>");
+
+                                    arrOutputCode.push("<span>");
                                     arrOutputCode.push(arrLinesCode[i]);
+                                    arrOutputCode.push("</span>");
+                                    arrOutputCode.push("<br>");
                                 }
 
-                                var strOutputLines = arrOutputLines.join('\r\n');
-                                var strOutputCode = arrOutputCode.join('\r\n');
-
-                                if (dojo.isIE) {
-                                    this._preLineNumbers.innerText = strOutputLines;
-                                    this._preCode.innerText = strOutputCode;
-                                } else {
-                                    this._preLineNumbers.innerHTML = strOutputLines;
-                                    this._preCode.innerHTML = strOutputCode;
-                                }
+                                this._preLineNumbers.innerHTML = arrOutputLines.join("");
+                                this._preCode.innerHTML = arrOutputCode.join("");
                             }
     });
