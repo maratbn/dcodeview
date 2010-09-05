@@ -61,20 +61,27 @@ dojo.declare(
                                 // prevent normal viewing without this widget, but just in case.
                                 strCode = strCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-                                var arrLinesCode = strCode.split(/\r\n|\r|\n/);
+                                // This will produce a consistent array on both FF and IE with a line separator at each odd index.
+                                var arrLinesCode = strCode.split(/($)/m);
+
+                                // This will get rid of the odd indices as well as line separators at the start of each even-endex line.
+                                var arrLinesCodeUse = [];
+                                for (var i = 0; i < arrLinesCode.length; i+=2) {
+                                    arrLinesCodeUse.push(arrLinesCode[i].replace(/\r\n|\r|\n/, ""));
+                                }
 
                                 // This removes the trailing blank lines from the source code.
-                                while (arrLinesCode.length > 0 && !arrLinesCode[arrLinesCode.length -1]) arrLinesCode.pop();
+                                while (arrLinesCodeUse.length > 0 && !arrLinesCodeUse[arrLinesCodeUse.length -1]) arrLinesCodeUse.pop();
 
                                 var arrOutputLines = [], arrOutputCode = [];
-                                for (var i = 0; i < arrLinesCode.length; i++) {
+                                for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     arrOutputLines.push("<span>");
                                     arrOutputLines.push(i);
                                     arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
 
                                     arrOutputCode.push("<span>");
-                                    arrOutputCode.push(arrLinesCode[i]);
+                                    arrOutputCode.push(arrLinesCodeUse[i]);
                                     arrOutputCode.push("</span>");
                                     arrOutputCode.push("<br>");
                                 }
