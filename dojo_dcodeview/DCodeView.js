@@ -55,6 +55,12 @@ dojo.declare(
                                 this.inherited(arguments);
 
                                 var strCode = this.srcNodeRef.innerHTML || "";
+
+                                // This prevents rendering of HTML tags that can mess up appearance of the source.
+                                // The user should not be including unescaped HTML in the source anyway because that would
+                                // prevent normal viewing without this widget, but just in case.
+                                strCode = strCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
                                 var arrLinesCode = strCode.split(/\r\n|\r|\n/);
 
                                 var arrOutputLines = [], arrOutputCode = [];
