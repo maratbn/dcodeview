@@ -39,13 +39,39 @@ dojo.declare(
     'dcodeview.DCodeView',
     [dijit._Widget, dijit._Templated],
     {
-        templateString:     [   "<pre>",
-                                "</pre>"
+        templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
+                                    "<tr>",
+                                        "<td align='right' valign='top'>",
+                                            "<pre dojoAttachPoint='_preLineNumbers'></pre>",
+                                        "</td>",
+                                        "<td align='left' valign='top'>",
+                                            "<pre dojoAttachPoint='_preCode'></pre>",
+                                        "</td>",
+                                    "</tr>",
+                                "</table>"
                             ].join(""),
 
         postCreate:         function() {
                                 this.inherited(arguments);
 
-                                
+                                var strCode = this.srcNodeRef.innerHTML || "";
+                                var arrLinesCode = strCode.split(/\r\n|\r|\n/);
+
+                                var arrOutputLines = [], arrOutputCode = [];
+                                for (var i = 0; i < arrLinesCode.length; i++) {
+                                    arrOutputLines.push(i);
+                                    arrOutputCode.push(arrLinesCode[i]);
+                                }
+
+                                var strOutputLines = arrOutputLines.join('\r\n');
+                                var strOutputCode = arrOutputCode.join('\r\n');
+
+                                if (dojo.isIE) {
+                                    this._preLineNumbers.innerText = strOutputLines;
+                                    this._preCode.innerText = strOutputCode;
+                                } else {
+                                    this._preLineNumbers.innerHTML = strOutputLines;
+                                    this._preCode.innerHTML = strOutputCode;
+                                }
                             }
     });
