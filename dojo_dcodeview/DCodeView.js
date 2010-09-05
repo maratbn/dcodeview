@@ -42,7 +42,7 @@ dojo.declare(
         templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
                                     "<tr>",
                                         "<td align='right' valign='top'>",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='border-right: 2px solid red; padding-right: 10px'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='border-right: 2px solid red'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
                                             "<pre dojoAttachPoint='_preCode' style='margin-left: 20px'></pre>",
@@ -75,7 +75,10 @@ dojo.declare(
 
                                 var arrOutputLines = [], arrOutputCode = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
-                                    arrOutputLines.push("<span>");
+                                    arrOutputLines.push("<span style='",
+                                                                i > 0 ? "border-top: 1px solid #aaa;" : "",
+                                                                "padding-right: 10px",
+                                                            "'>");
                                     arrOutputLines.push(i + 1);
                                     arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
