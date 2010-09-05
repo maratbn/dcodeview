@@ -76,7 +76,7 @@ dojo.declare(
                                 var arrOutputLines = [], arrOutputCode = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     arrOutputLines.push("<span>");
-                                    arrOutputLines.push(i);
+                                    arrOutputLines.push(i + 1);
                                     arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
 
