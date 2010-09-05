@@ -42,7 +42,7 @@ dojo.declare(
         templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
                                     "<tr>",
                                         "<td align='right' valign='top'>",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='border-right: 2px solid red'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='background-color: #ffe; border-right: 2px solid red'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
                                             "<pre dojoAttachPoint='_preCode' style='margin-left: 20px'></pre>",
@@ -81,7 +81,7 @@ dojo.declare(
                                     while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
                                     arrOutputLines.push("<span style='",
-                                                                i > 0 ? "border-top: 1px solid #aaa;" : "",
+                                                                i > 0 ? "border-top: 1px solid #bbb;" : "",
                                                                 "padding-right: 10px",
                                                             "'>");
                                     arrOutputLines.push(strLineNumber);
