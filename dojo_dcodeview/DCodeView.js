@@ -63,6 +63,9 @@ dojo.declare(
 
                                 var arrLinesCode = strCode.split(/\r\n|\r|\n/);
 
+                                // This removes the trailing blank lines from the source code.
+                                while (arrLinesCode.length > 0 && !arrLinesCode[arrLinesCode.length -1]) arrLinesCode.pop();
+
                                 var arrOutputLines = [], arrOutputCode = [];
                                 for (var i = 0; i < arrLinesCode.length; i++) {
                                     arrOutputLines.push("<span>");
