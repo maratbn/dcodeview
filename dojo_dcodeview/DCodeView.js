@@ -73,13 +73,18 @@ dojo.declare(
                                 // This removes the trailing blank lines from the source code.
                                 while (arrLinesCodeUse.length > 0 && !arrLinesCodeUse[arrLinesCodeUse.length -1]) arrLinesCodeUse.pop();
 
+                                var lengthLN = ("" + arrLinesCodeUse.length).length + 1;
+
                                 var arrOutputLines = [], arrOutputCode = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
+                                    var strLineNumber = "" + (i + 1);
+                                    while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
+
                                     arrOutputLines.push("<span style='",
                                                                 i > 0 ? "border-top: 1px solid #aaa;" : "",
                                                                 "padding-right: 10px",
                                                             "'>");
-                                    arrOutputLines.push(i + 1);
+                                    arrOutputLines.push(strLineNumber);
                                     arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
 
