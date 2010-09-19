@@ -51,6 +51,7 @@ dojo.declare(
                                             " style='",
                                                 "background-color: #ffe;",
                                                 "border-right: 2px solid #fbb;",
+                                                "color: #555;",
                                             "'",
                                         ">",
                                             "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
