@@ -39,6 +39,8 @@ dojo.declare(
     'dcodeview.DCodeView',
     [dijit._Widget, dijit._Templated],
     {
+        font_size:          "",
+
         templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
                                     "<tr>",
                                         "<td align='right' valign='top' style='background-color: #ffe; border-right: 2px solid red'>",
@@ -53,6 +55,10 @@ dojo.declare(
 
         postCreate:         function() {
                                 this.inherited(arguments);
+
+                                if (this.font_size) {
+                                    dojo.style(this.domNode, 'fontSize', this.font_size);
+                                }
 
                                 var strCode = this.srcNodeRef.innerHTML || "";
 
