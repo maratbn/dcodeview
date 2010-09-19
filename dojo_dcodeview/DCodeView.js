@@ -99,9 +99,7 @@ dojo.declare(
                                     arrOutputLines.push(strLineNumber);
                                     arrOutputLines.push("<br>");
 
-                                    arrOutputCode.push("<span>");
                                     arrOutputCode.push(arrLinesCodeUse[i]);
-                                    arrOutputCode.push("</span>");
                                     arrOutputCode.push("<br>");
                                 }
 
