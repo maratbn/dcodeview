@@ -42,10 +42,10 @@ dojo.declare(
         templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
                                     "<tr>",
                                         "<td align='right' valign='top' style='background-color: #ffe; border-right: 2px solid red'>",
-                                            "<pre dojoAttachPoint='_preLineNumbers'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
-                                            "<pre dojoAttachPoint='_preCode' style='margin-left: 20px'></pre>",
+                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 0 0 20px; padding: 0'></pre>",
                                         "</td>",
                                     "</tr>",
                                 "</table>"
