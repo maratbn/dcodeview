@@ -41,13 +41,15 @@ dojo.declare(
     {
         font_size:          "",
 
-        templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'>",
+        templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'",
+                                        " style='border-top: 2px solid #bbb;border-bottom: 2px solid #bbb'",
+                                    ">",
                                     "<tr>",
-                                        "<td align='right' valign='top'>",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='background-color: #ffe; border-right: 2px solid red'></pre>",
+                                        "<td align='right' valign='top' style='background-color: #ffe; border-right: 2px solid #fbb'>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
-                                            "<pre dojoAttachPoint='_preCode' style='margin-left: 20px'></pre>",
+                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 0 0 20px; padding: 0'></pre>",
                                         "</td>",
                                     "</tr>",
                                 "</table>"
@@ -86,12 +88,7 @@ dojo.declare(
                                     var strLineNumber = "" + (i + 1);
                                     while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
-                                    arrOutputLines.push("<span style='",
-                                                                i > 0 ? "border-top: 1px solid #bbb;" : "",
-                                                                "padding-right: 10px",
-                                                            "'>");
                                     arrOutputLines.push(strLineNumber);
-                                    arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
 
                                     arrOutputCode.push("<span>");
