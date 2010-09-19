@@ -46,7 +46,7 @@ dojo.declare(
                                     ">",
                                     "<tr>",
                                         "<td align='right' valign='top' style='background-color: #ffe; border-right: 2px solid #fbb'>",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
                                             "<pre dojoAttachPoint='_preCode' style='margin: 0 0 0 20px; padding: 0'></pre>",
@@ -88,11 +88,7 @@ dojo.declare(
                                     var strLineNumber = "" + (i + 1);
                                     while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
-                                    arrOutputLines.push("<span style='",
-                                                                "padding-right: 10px",
-                                                            "'>");
                                     arrOutputLines.push(strLineNumber);
-                                    arrOutputLines.push("</span>");
                                     arrOutputLines.push("<br>");
 
                                     arrOutputCode.push("<span>");
