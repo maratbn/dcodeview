@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    <head>
+        <title>DCodeView Source Code Viewer Website Widget</title>
+        <!-- The following loads the Dojo-specific stuff for the DCodeView widget: -->
+        <script
+            type='text/javascript'
+            src='/dojo-release-1.5.0/dojo/dojo.js'
+            djConfig="parseOnLoad: true, modulePaths:{'dcodeview':'/dcodeview/dojo_dcodeview/'}">
+        </script>
+        <script type='text/javascript'>
+            // This makes the DCodeView widget available for use on this page:
+            dojo.require('dcodeview.DCodeView');
+        </script>
+    </head>
+    <body>
+        <h1>DCodeView Source Code Viewer Website Widget</h1>
+        <ul>
+            <li>For publishing source code on the web.</li>
+            <li>Published source code conventionally deployed in the traditional &lt;pre&gt;<code>code</code>&lt;/pre&gt; container, so it remains indexable by search engines.</li>
+            <li>JavaScript widget overlays on top of the &lt;pre&gt; container, and dynamically adds line numbers that do not interfere with text selection.</li>
+        </ul>
+    </body>
+</html>
