@@ -45,11 +45,23 @@ dojo.declare(
                                         " style='border-top: 2px solid #bbb;border-bottom: 2px solid #bbb'",
                                     ">",
                                     "<tr>",
-                                        "<td align='right' valign='top' style='background-color: #ffe; border-right: 2px solid #fbb'>",
+                                        "<td",
+                                            " align='right'",
+                                            " valign='top'",
+                                            " style='",
+                                                "background-color: #ffe;",
+                                                "border-right: 2px solid #fbb;",
+                                                "color: #555;",
+                                            "'",
+                                        ">",
                                             "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
-                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 0 0 20px; padding: 0'></pre>",
+                                            "<div style='position: relative; z-index: -1'>",
+                                                "<div dojoAttachPoint='_divStripes' style='position: absolute; width: 100%'>",
+                                                "</div>",
+                                            "</div>",
+                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 10px; padding: 0'></pre>",
                                         "</td>",
                                     "</tr>",
                                 "</table>"
@@ -83,21 +95,32 @@ dojo.declare(
 
                                 var lengthLN = ("" + arrLinesCodeUse.length).length + 1;
 
-                                var arrOutputLines = [], arrOutputCode = [];
+                                var arrOutputLines = [], arrOutputCode = [], arrOutputStripes = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     var strLineNumber = "" + (i + 1);
                                     while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
-                                    arrOutputLines.push(strLineNumber);
-                                    arrOutputLines.push("<br>");
+                                    arrOutputLines.push(    "<span>",
+                                                                strLineNumber,
+                                                                "\r\n",
+                                                            "</span>");
 
-                                    arrOutputCode.push("<span>");
-                                    arrOutputCode.push(arrLinesCodeUse[i]);
-                                    arrOutputCode.push("</span>");
-                                    arrOutputCode.push("<br>");
+                                    arrOutputCode.push(     "<span>",
+                                                                arrLinesCodeUse[i],
+                                                                "\r\n",
+                                                            "</span>");
+
+                                    arrOutputStripes.push(  "<div",
+                                                                " style='background-color: ",
+                                                                    (i % 2 ? "#efefef" : "#edfded"),
+                                                                "'",
+                                                                ">",
+                                                                "&nbsp;",
+                                                            "</div>");
                                 }
 
                                 this._preLineNumbers.innerHTML = arrOutputLines.join("");
                                 this._preCode.innerHTML = arrOutputCode.join("");
+                                this._divStripes.innerHTML = arrOutputStripes.join("");
                             }
     });
