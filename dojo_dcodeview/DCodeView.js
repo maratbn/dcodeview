@@ -112,7 +112,7 @@ dojo.declare(
 
                                     arrOutputStripes.push(  "<div",
                                                                 " style='background-color: ",
-                                                                    (i % 2 ? "#eee" : "#dfd"),
+                                                                    (i % 2 ? "#efefef" : "#edfded"),
                                                                 "'",
                                                                 ">",
                                                                 "&nbsp;",
