@@ -61,7 +61,7 @@ dojo.declare(
                                                 "<div dojoAttachPoint='_divStripes' style='position: absolute; width: 100%'>",
                                                 "</div>",
                                             "</div>",
-                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 0 0 20px; padding: 0'></pre>",
+                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 10px; padding: 0'></pre>",
                                         "</td>",
                                     "</tr>",
                                 "</table>"
