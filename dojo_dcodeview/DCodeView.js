@@ -100,11 +100,15 @@ dojo.declare(
                                     var strLineNumber = "" + (i + 1);
                                     while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
-                                    arrOutputLines.push(strLineNumber);
-                                    arrOutputLines.push("<br>");
+                                    arrOutputLines.push(    "<span>",
+                                                                strLineNumber,
+                                                                "\r\n",
+                                                            "</span>");
 
-                                    arrOutputCode.push(arrLinesCodeUse[i]);
-                                    arrOutputCode.push("<br>");
+                                    arrOutputCode.push(     "<span>",
+                                                                arrLinesCodeUse[i],
+                                                                "\r\n",
+                                                            "</span>");
 
                                     arrOutputStripes.push(  "<div",
                                                                 " style='background-color: ",
