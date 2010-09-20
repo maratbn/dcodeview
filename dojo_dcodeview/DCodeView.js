@@ -54,7 +54,7 @@ dojo.declare(
                                                 "color: #555;",
                                             "'",
                                         ">",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
                                             "<div style='position: relative; z-index: -1'>",
@@ -93,12 +93,9 @@ dojo.declare(
                                 // This removes the trailing blank lines from the source code.
                                 while (arrLinesCodeUse.length > 0 && !arrLinesCodeUse[arrLinesCodeUse.length -1]) arrLinesCodeUse.pop();
 
-                                var lengthLN = ("" + arrLinesCodeUse.length).length + 1;
-
                                 var arrOutputLines = [], arrOutputCode = [], arrOutputStripes = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     var strLineNumber = "" + (i + 1);
-                                    while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
                                     arrOutputLines.push(    "<span>",
                                                                 strLineNumber,
