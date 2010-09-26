@@ -54,7 +54,7 @@ dojo.declare(
                                                 "color: #555;",
                                             "'",
                                         ">",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px 0 0'></pre>",
+                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px'></pre>",
                                         "</td>",
                                         "<td align='left' valign='top'>",
                                             "<div style='position: relative; z-index: -1'>",
@@ -74,12 +74,7 @@ dojo.declare(
                                     dojo.style(this.domNode, 'fontSize', this.font_size);
                                 }
 
-                                var strCode = this.srcNodeRef.innerHTML || "";
-
-                                // This prevents rendering of HTML tags that can mess up appearance of the source.
-                                // The user should not be including unescaped HTML in the source anyway because that would
-                                // prevent normal viewing without this widget, but just in case.
-                                strCode = strCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                                var strCode = (dojo.isIE ? this.srcNodeRef.innerText : this.srcNodeRef.textContent) || "";
 
                                 // This will produce a consistent array on both FF and IE with a line separator at each odd index.
                                 var arrLinesCode = strCode.split(/($)/m);
@@ -93,34 +88,31 @@ dojo.declare(
                                 // This removes the trailing blank lines from the source code.
                                 while (arrLinesCodeUse.length > 0 && !arrLinesCodeUse[arrLinesCodeUse.length -1]) arrLinesCodeUse.pop();
 
-                                var lengthLN = ("" + arrLinesCodeUse.length).length + 1;
+                                // Different line break sequences work / do not work on different browsers.
+                                // The sequence \r\n causes an extra line on IE, and an extra line of clipboard text in FF.
+                                // The sequence \n works well on FF, but not IE.
+                                // The sequence \r works well on IE.
+                                var strLineBreak = dojo.isIE ? "\r" : "\n";
 
-                                var arrOutputLines = [], arrOutputCode = [], arrOutputStripes = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     var strLineNumber = "" + (i + 1);
-                                    while (strLineNumber.length < lengthLN) strLineNumber = ' ' + strLineNumber;
 
-                                    arrOutputLines.push(    "<span>",
-                                                                strLineNumber,
-                                                                "\r\n",
-                                                            "</span>");
+                                    dojo.place(document.createTextNode(strLineNumber), this._preLineNumbers);
+                                    dojo.place(document.createTextNode(strLineBreak), this._preLineNumbers);
 
-                                    arrOutputCode.push(     "<span>",
-                                                                arrLinesCodeUse[i],
-                                                                "\r\n",
-                                                            "</span>");
+                                    dojo.place(document.createTextNode(arrLinesCodeUse[i]), this._preCode);
+                                    dojo.place(document.createTextNode(strLineBreak), this._preCode);
 
-                                    arrOutputStripes.push(  "<div",
-                                                                " style='background-color: ",
-                                                                    (i % 2 ? "#efefef" : "#edfded"),
-                                                                "'",
-                                                                ">",
-                                                                "&nbsp;",
-                                                            "</div>");
+                                    dojo.place(
+                                        dojo.create(
+                                                "div",
+                                                {
+                                                    style: {
+                                                        backgroundColor: (i % 2 ? "#efefef" : "#edfded")
+                                                    },
+                                                    innerHTML: "&nbsp;"
+                                                }),
+                                        this._divStripes);
                                 }
-
-                                this._preLineNumbers.innerHTML = arrOutputLines.join("");
-                                this._preCode.innerHTML = arrOutputCode.join("");
-                                this._divStripes.innerHTML = arrOutputStripes.join("");
                             }
     });
