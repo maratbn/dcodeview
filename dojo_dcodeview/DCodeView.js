@@ -86,7 +86,10 @@ dojo.declare(
                                 }
 
                                 // This removes the trailing blank lines from the source code.
-                                while (arrLinesCodeUse.length > 0 && !arrLinesCodeUse[arrLinesCodeUse.length -1]) arrLinesCodeUse.pop();
+                                while (arrLinesCodeUse.length > 0
+                                        && (!arrLinesCodeUse[arrLinesCodeUse.length - 1]
+                                            || arrLinesCodeUse[arrLinesCodeUse.length - 1].match(/^\s+$/)))
+                                                arrLinesCodeUse.pop();
 
                                 // Different line break sequences work / do not work on different browsers.
                                 // The sequence \r\n causes an extra line on IE, and an extra line of clipboard text in FF.
