@@ -74,12 +74,7 @@ dojo.declare(
                                     dojo.style(this.domNode, 'fontSize', this.font_size);
                                 }
 
-                                var strCode = this.srcNodeRef.innerHTML || "";
-
-                                // This prevents rendering of HTML tags that can mess up appearance of the source.
-                                // The user should not be including unescaped HTML in the source anyway because that would
-                                // prevent normal viewing without this widget, but just in case.
-                                strCode = strCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                                var strCode = (dojo.isIE ? this.srcNodeRef.innerText : this.srcNodeRef.textContent) || "";
 
                                 // This will produce a consistent array on both FF and IE with a line separator at each odd index.
                                 var arrLinesCode = strCode.split(/($)/m);
