@@ -94,7 +94,6 @@ dojo.declare(
                                 // The sequence \r works well on IE.
                                 var strLineBreak = dojo.isIE ? "\r" : "\n";
 
-                                var arrOutputLines = [], arrOutputCode = [], arrOutputStripes = [];
                                 for (var i = 0; i < arrLinesCodeUse.length; i++) {
                                     var strLineNumber = "" + (i + 1);
 
