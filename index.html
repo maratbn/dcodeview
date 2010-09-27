@@ -47,5 +47,45 @@
     &lt;li&gt;Works consistently on Firefox, Chrome, Safari, and IE6/7/8.&lt;/li&gt;
 &lt;/ul&gt;
         </pre>
+
+        <h2>To install DCodeView on your website:</h2>
+        <ol>
+            <li>Create directory <code>/dojo_dcodeview/</code> in the root of your site, so that it is accessible as <code>http://yoursite.com/dojo_dcodeview/</code> from the web.</li>
+            <li>Copy <a href='dojo_dcodeview/DCodeView.js'>DCodeView.js</a> to the directory created in the previous step.</li>
+            <li>Download <a href='http://download.dojotoolkit.org/release-1.5.0/dojo-release-1.5.0.zip'>a Dojo Toolkit release</a> from <a href='http://dojotoolkit.org/download'>dojotoolkit.org/download</a></li>
+            <li>Unpack the Dojo Toolkit archive file into the root of your site so that it is accessible as, for example, <code>http://yoursite.com/dojo-release-1.5.0/</code> from the web.</li>
+            <li>Include the Dojo Toolkit main JavaScript file in the <code>&lt;head&gt;</code> of your page with the following <code>&lt;script&gt;</code> tag:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px'>
+<!-- The following loads the Dojo-specific stuff for the DCodeView widget: -->
+&lt;script
+    type='text/javascript'
+    src='/dojo-release-1.5.0/dojo/dojo.js'
+    djConfig="parseOnLoad: true, modulePaths:{'dcodeview':'/dojo_dcodeview/'}"&gt;
+&lt;/script&gt;
+                </pre>
+            </li>
+            <li>Add a second <code>&lt;script&gt;</code> tag to import the DCodeView widget into Dojo:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px'>
+&lt;script type='text/javascript'&gt;
+    // This makes the DCodeView widget available for use on this page:
+    dojo.require('dcodeview.DCodeView');
+&lt;/script&gt;
+                </pre>
+            </li>
+            <li>The DCodeView widget can now be instantiated / overlayed on top of any <code>&lt;pre&gt;</code> tag code container on the site with the <code>dojoType='dcodeview.DCodeView'</code> attribute:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px'>
+&lt;pre dojoType='dcodeview.DCodeView' font_size='8pt'&gt;
+
+      ...       ...       ...     
+
+    ...   your  code  here   ...
+
+       ...       ...       ...
+
+&lt;/pre&gt;
+                </pre>
+                (The <code>font_size</code> attribute is optional.)
+            </li>
+        </ol>
     </body>
 </html>
