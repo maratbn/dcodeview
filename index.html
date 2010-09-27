@@ -13,22 +13,93 @@
             // This makes the DCodeView widget available for use on this page:
             dojo.require('dcodeview.DCodeView');
         </script>
+        <style type='text/css'>
+            .dcodeview_support {
+                font-family:                    sans-serif;
+                font-size:                      10pt;
+                width:                          90%;
+                margin:                         auto;
+            }
+            .dcodeview_support .dcodeview_quick_links {
+                float:                          right;
+                margin-left:                    15px;
+                width:                          19%;
+            }
+        </style>
     </head>
-    <body>
+    <body class='dcodeview_support'>
+        <div class='dcodeview_quick_links'>
+            <p>
+                <h3><a href='http://github.com/maratbn/dcodeview/'>Browse source</a></h3>
+            </p>
+        </div>
         <h1>DCodeView Source Code Viewer Website Widget</h1>
         <ul>
             <li>For publishing source code on the web.</li>
-            <li>Published source code conventionally deployed in the traditional &lt;pre&gt;code&lt;/pre&gt; container, so it remains indexable by search engines.</li>
-            <li>JavaScript widget overlays on top of the &lt;pre&gt; container, and dynamically adds line numbers that do not interfere with text selection.</li>
+            <li>Published source code conventionally deployed in the traditional <code>&lt;pre&gt;code&lt;/pre&gt;</code> container,
+                so it remains indexable by search engines.</li>
+            <li>JavaScript widget overlays on top of the <code>&lt;pre&gt;</code> container, and dynamically adds line numbers that
+                do not interfere with text selection.</li>
             <li>Works consistently on Firefox, Chrome, Safari, and IE6/7/8.</li>
         </ul>
         <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px'>
-            &lt;ul&gt;
-                &lt;li&gt;For publishing source code on the web.&lt;/li&gt;
-                &lt;li&gt;Published source code conventionally deployed in the traditional &amp;lt;pre&amp;gt;code&amp;lt;/pre&amp;gt; container, so it remains indexable by search engines.&lt;/li&gt;
-                &lt;li&gt;JavaScript widget overlays on top of the &amp;lt;pre&amp;gt; container, and dynamically adds line numbers that do not interfere with text selection.&lt;/li&gt;
-                &lt;li&gt;Works consistently on Firefox, Chrome, Safari, and IE6/7/8.&lt;/li&gt;
-            &lt;/ul&gt;
+&lt;ul&gt;
+    &lt;li&gt;For publishing source code on the web.&lt;/li&gt;
+    &lt;li&gt;Published source code conventionally deployed in the traditional &amp;lt;pre&amp;gt;code&amp;lt;/pre&amp;gt; container,
+        so it remains indexable by search engines.&lt;/li&gt;
+    &lt;li&gt;JavaScript widget overlays on top of the &amp;lt;pre&amp;gt; container, and dynamically adds line numbers that
+        do not interfere with text selection.&lt;/li&gt;
+    &lt;li&gt;Works consistently on Firefox, Chrome, Safari, and IE6/7/8.&lt;/li&gt;
+&lt;/ul&gt;
         </pre>
+
+        <h2>To install DCodeView on your website:</h2>
+        <ol>
+            <li>Create directory <code>/dojo_dcodeview/</code> in the root of your site, so that it is accessible as <code>http://yoursite.com/dojo_dcodeview/</code> from the web.</li>
+            <li>Copy <a href='dojo_dcodeview/DCodeView.js'>DCodeView.js</a> to the directory created in the previous step.</li>
+            <li>Download <a href='http://download.dojotoolkit.org/release-1.5.0/dojo-release-1.5.0.zip'>a Dojo Toolkit release</a> from <a href='http://dojotoolkit.org/download'>dojotoolkit.org/download</a></li>
+            <li>Unpack the Dojo Toolkit archive file into the root of your site so that it is accessible as, for example, <code>http://yoursite.com/dojo-release-1.5.0/</code> from the web.</li>
+            <li>Include the Dojo Toolkit main JavaScript file in the <code>&lt;head&gt;</code> of your page with the following <code>&lt;script&gt;</code> tag:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px; width: 620px'>
+&lt;!-- The following loads the Dojo-specific stuff for the DCodeView widget: --&gt;
+&lt;script
+    type='text/javascript'
+    src='/dojo-release-1.5.0/dojo/dojo.js'
+    djConfig="parseOnLoad: true, modulePaths:{'dcodeview':'/dojo_dcodeview/'}"&gt;
+&lt;/script&gt;
+                </pre>
+            </li>
+            <li>Add a second <code>&lt;script&gt;</code> tag to import the DCodeView widget into Dojo:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px; width: 620px'>
+&lt;script type='text/javascript'&gt;
+    // This makes the DCodeView widget available for use on this page:
+    dojo.require('dcodeview.DCodeView');
+&lt;/script&gt;
+                </pre>
+            </li>
+            <li>The DCodeView widget can now be instantiated / overlayed on top of any <code>&lt;pre&gt;</code> tag code container on the site with the <code>dojoType='dcodeview.DCodeView'</code> attribute:
+                <pre dojoType='dcodeview.DCodeView' font_size='8pt' style='margin: 5px; width: 620px'>
+&lt;pre dojoType='dcodeview.DCodeView' font_size='8pt'&gt;
+
+      ...       ...       ...     
+
+    ...   your  code  here   ...
+
+       ...       ...       ...
+
+&lt;/pre&gt;
+                </pre>
+                The <code>font_size</code> attribute is optional, but recommended.  Most CSS styles also accepted via the <code>class</code> and <code>style</code> attributes.
+            </li>
+        </ol>
+        <div class='footer'>
+            Copyright (c) 2010 Marat Nepomnyashy
+            <br>
+            Except where otherwise noted, this webpage is licensed under the
+            <a href='http://creativecommons.org/licenses/by/3.0/'>Creative Commons Attribution License version 3</a>.
+            <br>
+            The DCodeView widget source code is <a href='http://github.com/maratbn/DCodeView/raw/master/LICENSE'>licensed</a>
+            under <a href='http://www.opensource.org/licenses/bsd-license.php'>BSD</a>.
+        </div>
     </body>
 </html>
