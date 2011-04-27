@@ -41,82 +41,111 @@ dojo.declare(
     {
         font_size:          "",
 
-        templateString:     [   "<table cellspacing='0' cellpadding='0' border='0'",
-                                        " style='border-top: 2px solid #bbb;border-bottom: 2px solid #bbb'",
-                                    ">",
-                                    "<tr>",
-                                        "<td",
-                                            " align='right'",
-                                            " valign='top'",
-                                            " style='",
-                                                "background-color: #ffe;",
-                                                "border-right: 2px solid #fbb;",
-                                                "color: #555;",
-                                            "'",
-                                            " width='1px'",
-                                        ">",
-                                            "<pre dojoAttachPoint='_preLineNumbers' style='margin: 0 0 0 0; padding: 0 10px'></pre>",
-                                        "</td>",
-                                        "<td align='left' valign='top'>",
-                                            "<div style='position: relative; z-index: -1'>",
-                                                "<div dojoAttachPoint='_divStripes' style='position: absolute; width: 100%'>",
-                                                "</div>",
-                                            "</div>",
-                                            "<pre dojoAttachPoint='_preCode' style='margin: 0 10px; padding: 0'></pre>",
-                                        "</td>",
-                                    "</tr>",
-                                "</table>"
-                            ].join(""),
+        templateString:
+            [
+                "<table cellspacing='0' cellpadding='0' border='0'",
+                    " style='",
+                      "border-top: 2px solid #bbb;",
+                      "border-bottom: 2px solid #bbb",
+                    "'",
+                  ">",
+                  "<tr>",
+                    "<td",
+                        " align='right'",
+                        " valign='top'",
+                        " style='",
+                          "background-color: #ffe;",
+                          "border-right: 2px solid #fbb;",
+                          "color: #555;",
+                        "'",
+                        " width='1px'",
+                      ">",
+                      "<pre dojoAttachPoint='_preLineNumbers'",
+                          " style='margin: 0 0 0 0; padding: 0 10px'></pre>",
+                    "</td>",
+                    "<td align='left' valign='top'>",
+                      "<div style='position: relative; z-index: -1'>",
+                        "<div dojoAttachPoint='_divStripes'",
+                            " style='position: absolute; width: 100%'>",
+                        "</div>",
+                      "</div>",
+                      "<pre dojoAttachPoint='_preCode'",
+                          " style='margin: 0 10px; padding: 0'></pre>",
+                    "</td>",
+                  "</tr>",
+                "</table>"].join(""),
 
-        postCreate:         function() {
-                                this.inherited(arguments);
+        postCreate: function() {
+                this.inherited(arguments);
 
-                                if (this.font_size) {
-                                    dojo.style(this.domNode, 'fontSize', this.font_size);
-                                }
+                if (this.font_size) {
+                    dojo.style(this.domNode, 'fontSize', this.font_size);
+                }
 
-                                var strCode = (dojo.isIE ? this.srcNodeRef.innerText : this.srcNodeRef.textContent) || "";
+                var strCode = (dojo.isIE
+                                    ? this.srcNodeRef.innerText
+                                    : this.srcNodeRef.textContent) || "";
 
-                                // This will produce a consistent array on both FF and IE with a line separator at each odd index.
-                                var arrLinesCode = strCode.split(/($)/m);
+                //  This will produce a consistent array on both FF and IE
+                //  with a line separator at each odd index.
+                var arrLinesCode = strCode.split(/($)/m);
 
-                                // This will get rid of the odd indices as well as line separators at the start of each even-endex line.
-                                var arrLinesCodeUse = [];
-                                for (var i = 0; i < arrLinesCode.length; i+=2) {
-                                    arrLinesCodeUse.push(arrLinesCode[i].replace(/\r\n|\r|\n/, ""));
-                                }
+                //  This will get rid of the odd indices as well as line
+                //  separators at the start of each even-endex line.
+                var arrLinesCodeUse = [];
+                for (var i = 0; i < arrLinesCode.length; i+= 2) {
+                    arrLinesCodeUse.push(arrLinesCode[i].replace(
+                                                        /\r\n|\r|\n/, ""));
+                }
 
-                                // This removes the trailing blank lines from the source code.
-                                while (arrLinesCodeUse.length > 0
-                                        && (!arrLinesCodeUse[arrLinesCodeUse.length - 1]
-                                            || arrLinesCodeUse[arrLinesCodeUse.length - 1].match(/^\s+$/)))
-                                                arrLinesCodeUse.pop();
+                //  This removes the trailing blank lines from the source
+                //  code.
+                while (arrLinesCodeUse.length > 0
+                        && (!arrLinesCodeUse[arrLinesCodeUse.length - 1]
+                            || arrLinesCodeUse[arrLinesCodeUse.length - 1]
+                                .match(/^\s+$/)))
+                                    arrLinesCodeUse.pop();
 
-                                // Different line break sequences work / do not work on different browsers.
-                                // The sequence \r\n causes an extra line on IE, and an extra line of clipboard text in FF.
-                                // The sequence \n works well on FF, but not IE.
-                                // The sequence \r works well on IE.
-                                var strLineBreak = dojo.isIE ? "\r" : "\n";
+                //  Different line break sequences work / do not work on
+                //  different browsers.
+                //
+                //  The sequence \r\n causes an extra line on IE, and an extra
+                //  line of clipboard text in FF.
+                //
+                //  The sequence \n works well on FF, but not IE.
+                //
+                //  The sequence \r works well on IE.
+                var strLineBreak = dojo.isIE ? "\r" : "\n";
 
-                                for (var i = 0; i < arrLinesCodeUse.length; i++) {
-                                    var strLineNumber = "" + (i + 1);
+                for (var i = 0; i < arrLinesCodeUse.length; i++) {
+                    var strLineNumber = "" + (i + 1);
 
-                                    dojo.place(document.createTextNode(strLineNumber), this._preLineNumbers);
-                                    dojo.place(document.createTextNode(strLineBreak), this._preLineNumbers);
+                    dojo.place(
+                        document.createTextNode(strLineNumber),
+                        this._preLineNumbers);
+                    dojo.place(
+                        document.createTextNode(strLineBreak),
+                        this._preLineNumbers);
 
-                                    dojo.place(document.createTextNode(arrLinesCodeUse[i]), this._preCode);
-                                    dojo.place(document.createTextNode(strLineBreak), this._preCode);
+                    dojo.place(
+                        document.createTextNode(arrLinesCodeUse[i]),
+                        this._preCode);
+                    dojo.place(
+                        document.createTextNode(strLineBreak),
+                        this._preCode);
 
-                                    dojo.place(
-                                        dojo.create(
-                                                "div",
-                                                {
-                                                    style: {
-                                                        backgroundColor: (i % 2 ? "#efefef" : "#edfded")
-                                                    },
-                                                    innerHTML: "&nbsp;"
-                                                }),
-                                        this._divStripes);
-                                }
-                            }
+                    dojo.place(
+                        dojo.create(
+                                "div",
+                                {
+                                    style: {
+                                        backgroundColor: (i % 2
+                                                                ? "#efefef"
+                                                                : "#edfded")
+                                    },
+                                    innerHTML: "&nbsp;"
+                                }),
+                        this._divStripes);
+                }
+            }
     });
