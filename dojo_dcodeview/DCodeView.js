@@ -95,15 +95,17 @@ dojo.declare(
                     dojo.style(this.domNode, 'fontSize', this.font_size);
                 }
 
-                if (this.width) {
-                    dojo.style(this._preCode, 'width', this.width);
-                }
-
                 if (this.height) {
                     dojo.style(this._spanBorder, 'height', this.height);
                     dojo.style(this._spanBorder, 'overflowX', 'hidden');
                     dojo.style(this._spanBorder, 'overflowY', 'auto');
                     dojo.style(this._preCode, 'marginRight', '2em');
+                }
+
+                if (this.width) {
+                    dojo.style(this._spanBorder, 'width', this.width);
+                    dojo.style(this._preCode, 'width', this.width);
+                    dojo.style(this._spanBorder, 'overflowX', 'hidden');
                 }
 
                 var strCode = (dojo.isIE
