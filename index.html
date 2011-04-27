@@ -197,6 +197,8 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],
     {
         font_size: "",
+
+        width: "",
         height: "",
 
         templateString: [
@@ -257,6 +259,12 @@ dojo.declare(
                     dojo.style(this._preCode, 'marginRight', '2em');
                 }
 
+                if (this.width) {
+                    dojo.style(this._spanBorder, 'width', this.width);
+                    dojo.style(this._preCode, 'width', this.width);
+                    dojo.style(this._spanBorder, 'overflowX', 'hidden');
+                }
+
                 var strCode = (dojo.isIE
                                     ? this.srcNodeRef.innerText
                                     : this.srcNodeRef.textContent) || "";
@@ -311,15 +319,14 @@ dojo.declare(
 
                     dojo.place(
                         dojo.create(
-                                "div",
-                                {
-                                    style: {
-                                        backgroundColor: (i % 2
-                                                                ? "#efefef"
-                                                                : "#edfded")
-                                    },
-                                    innerHTML: "&amp;nbsp;"
-                                }),
+                            "div",
+                            {
+                                style: {
+                                    backgroundColor: (i % 2 ? "#efefef"
+                                                            : "#edfded")
+                                },
+                                innerHTML: "&amp;nbsp;"
+                            }),
                         this._divStripes);
                 }
             }
