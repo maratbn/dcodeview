@@ -40,48 +40,65 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],
     {
         font_size:          "",
+        height:             "",
 
         templateString:
             [
-                "<table cellspacing='0' cellpadding='0' border='0'",
-                    " style='",
-                      "border-top: 2px solid #bbb;",
-                      "border-bottom: 2px solid #bbb",
-                    "'",
-                  ">",
-                  "<tbody>",
-                    "<tr>",
-                      "<td",
-                          " align='right'",
-                          " valign='top'",
-                          " style='",
-                            "background-color: #ffe;",
-                            "border-right: 2px solid #fbb;",
-                            "color: #555;",
-                          "'",
-                          " width='1px'",
-                        ">",
-                        "<pre dojoAttachPoint='_preLineNumbers'",
-                            " style='margin: 0 0 0 0; padding: 0 10px'></pre>",
-                      "</td>",
-                      "<td align='left' valign='top'>",
-                        "<div style='position: relative; z-index: -1'>",
-                          "<div dojoAttachPoint='_divStripes'",
-                              " style='position: absolute; width: 100%'>",
-                          "</div>",
-                        "</div>",
-                        "<pre dojoAttachPoint='_preCode'",
-                            " style='margin: 0 10px; padding: 0'></pre>",
-                      "</td>",
-                    "</tr>",
-                  "</tbody>",
-                "</table>"].join(""),
+                "<div>",
+                  "<span dojoAttachPoint='_spanBorder' style='",
+                          "display: inline-block;",
+                          "border-top: 2px solid #bbb;",
+                          "border-bottom: 2px solid #bbb",
+                      "'>",
+                    "<table cellspacing='0' cellpadding='0' border='0'>",
+                      "<tbody>",
+                        "<tr>",
+                          "<td",
+                              " align='right'",
+                              " valign='top'",
+                              " style='",
+                                "background-color: #ffe;",
+                                "border-right: 2px solid #fbb;",
+                                "color: #555;",
+                              "'",
+                              " width='1px'",
+                            ">",
+                            "<pre dojoAttachPoint='_preLineNumbers'",
+                                " style='margin: 0 0 0 0; padding: 0 10px'>",
+                            "</pre>",
+                          "</td>",
+                          "<td align='left' valign='top'>",
+                            "<div dojoAttachPoint='_divStripes'",
+                                " style='position: relative; z-index: -1'>",
+                              "<div dojoAttachPoint='_divStripes'",
+                                  " style='position: absolute; width: 100%'>",
+                              "</div>",
+                            "</div>",
+                            "<pre dojoAttachPoint='_preCode'",
+                                " style='margin: 0 10px; padding: 0'></pre>",
+                          "</td>",
+                        "</tr>",
+                      "</tbody>",
+                    "</table>",
+                  "</span>",
+                "</div>"].join(""),
 
         postCreate: function() {
                 this.inherited(arguments);
 
+                if (dojo.isIE <= 7) {
+                    dojo.style(this._divStripes, 'display', 'none');
+                }
+
                 if (this.font_size) {
                     dojo.style(this.domNode, 'fontSize', this.font_size);
+                }
+
+                if (this.height) {
+                    dojo.style(this._spanBorder, 'height', this.height);
+                    dojo.style(this._spanBorder, 'overflowX', 'hidden');
+                    dojo.style(this._spanBorder, 'overflowY', 'auto');
+                    dojo.style(this._preCode, 'marginRight', '2em');
                 }
 
                 var strCode = (dojo.isIE
