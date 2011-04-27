@@ -40,6 +40,8 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],
     {
         font_size: "",
+
+        width: "",
         height: "",
 
         templateString: [
@@ -91,6 +93,10 @@ dojo.declare(
 
                 if (this.font_size) {
                     dojo.style(this.domNode, 'fontSize', this.font_size);
+                }
+
+                if (this.width) {
+                    dojo.style(this._preCode, 'width', this.width);
                 }
 
                 if (this.height) {
