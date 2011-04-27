@@ -98,6 +98,186 @@
                 </pre>
                 The <code>font_size</code> attribute is optional, but recommended.  Most CSS styles also accepted via the <code>class</code> and <code>style</code> attributes.
             </li>
+            <li>
+              <p>
+                In addition, the height of the viewport may be limited with
+                the <code>height</code> attribute.  This allows the user to
+                scroll to any position within long listings of source code
+                and still be able to simultaneously refer to other page
+                content within the browser viewport.
+              </p>
+              <pre dojoType='dcodeview.DCodeView' height='15em'>
+/**
+ *  Copyright (c) 2010-2011 Marat Nepomnyashy    maratbn@gmail
+ *  All rights reserved.
+ *
+ *  Module:         dojo_dcodeview/DCodeView.js
+ *
+ *  Description:    A Dojo-based widget for embedding arbitrary source code
+ *                  views inside web pages.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are met:
+ *      * Redistributions of source code must retain the above copyright
+ *        notice, this list of conditions and the following disclaimer.
+ *      * Redistributions in binary form must reproduce the above copyright
+ *        notice, this list of conditions and the following disclaimer in the
+ *        documentation and/or other materials provided with the distribution.
+ *      * Neither the name of the &lt;organization&gt; nor the
+ *        names of its contributors may be used to endorse or promote products
+ *        derived from this software without specific prior written permission.
+ * 
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ *  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ *  ARE DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY
+ *  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+dojo.provide('dcodeview.DCodeView');
+
+dojo.require('dijit._Templated');
+dojo.require('dijit._Widget');
+
+dojo.declare(
+    'dcodeview.DCodeView',
+    [dijit._Widget, dijit._Templated],
+    {
+        font_size: "",
+        height: "",
+
+        templateString: [
+                "&lt;div&gt;",
+                  "&lt;span dojoAttachPoint='_spanBorder' style='",
+                          "display: inline-block;",
+                          "border-top: 2px solid #bbb;",
+                          "border-bottom: 2px solid #bbb",
+                      "'&gt;",
+                    "&lt;table cellspacing='0' cellpadding='0' border='0'&gt;",
+                      "&lt;tbody&gt;",
+                        "&lt;tr&gt;",
+                          "&lt;td",
+                              " align='right'",
+                              " valign='top'",
+                              " style='",
+                                "background-color: #ffe;",
+                                "border-right: 2px solid #fbb;",
+                                "color: #555;",
+                              "'",
+                              " width='1px'",
+                            "&gt;",
+                            "&lt;pre dojoAttachPoint='_preLineNumbers'",
+                                " style='margin: 0 0 0 0; padding: 0 10px'&gt;",
+                            "&lt;/pre&gt;",
+                          "&lt;/td&gt;",
+                          "&lt;td align='left' valign='top'&gt;",
+                            "&lt;div dojoAttachPoint='_divStripes'",
+                                " style='position: relative; z-index: -1'&gt;",
+                              "&lt;div dojoAttachPoint='_divStripes'",
+                                  " style='position: absolute; width: 100%'&gt;",
+                              "&lt;/div&gt;",
+                            "&lt;/div&gt;",
+                            "&lt;pre dojoAttachPoint='_preCode'",
+                                " style='margin: 0 10px; padding: 0'&gt;&lt;/pre&gt;",
+                          "&lt;/td&gt;",
+                        "&lt;/tr&gt;",
+                      "&lt;/tbody&gt;",
+                    "&lt;/table&gt;",
+                  "&lt;/span&gt;",
+                "&lt;/div&gt;"].join(""),
+
+        postCreate: function() {
+                this.inherited(arguments);
+
+                if (dojo.isIE &lt;= 7) {
+                    dojo.style(this._divStripes, 'display', 'none');
+                }
+
+                if (this.font_size) {
+                    dojo.style(this.domNode, 'fontSize', this.font_size);
+                }
+
+                if (this.height) {
+                    dojo.style(this._spanBorder, 'height', this.height);
+                    dojo.style(this._spanBorder, 'overflowX', 'hidden');
+                    dojo.style(this._spanBorder, 'overflowY', 'auto');
+                    dojo.style(this._preCode, 'marginRight', '2em');
+                }
+
+                var strCode = (dojo.isIE
+                                    ? this.srcNodeRef.innerText
+                                    : this.srcNodeRef.textContent) || "";
+
+                //  This will produce a consistent array on both FF and IE
+                //  with a line separator at each odd index.
+                var arrLinesCode = strCode.split(/($)/m);
+
+                //  This will get rid of the odd indices as well as line
+                //  separators at the start of each even-endex line.
+                var arrLinesCodeUse = [];
+                for (var i = 0; i &lt; arrLinesCode.length; i+= 2) {
+                    arrLinesCodeUse.push(arrLinesCode[i].replace(
+                                                        /\r\n|\r|\n/, ""));
+                }
+
+                //  This removes the trailing blank lines from the source
+                //  code.
+                while (arrLinesCodeUse.length &gt; 0
+                        &amp;&amp; (!arrLinesCodeUse[arrLinesCodeUse.length - 1]
+                            || arrLinesCodeUse[arrLinesCodeUse.length - 1]
+                                .match(/^\s+$/)))
+                                    arrLinesCodeUse.pop();
+
+                //  Different line break sequences work / do not work on
+                //  different browsers.
+                //
+                //  The sequence \r\n causes an extra line on IE, and an extra
+                //  line of clipboard text in FF.
+                //
+                //  The sequence \n works well on FF, but not IE.
+                //
+                //  The sequence \r works well on IE.
+                var strLineBreak = dojo.isIE ? "\r" : "\n";
+
+                for (var i = 0; i &lt; arrLinesCodeUse.length; i++) {
+                    var strLineNumber = "" + (i + 1);
+
+                    dojo.place(
+                        document.createTextNode(strLineNumber),
+                        this._preLineNumbers);
+                    dojo.place(
+                        document.createTextNode(strLineBreak),
+                        this._preLineNumbers);
+
+                    dojo.place(
+                        document.createTextNode(arrLinesCodeUse[i]),
+                        this._preCode);
+                    dojo.place(
+                        document.createTextNode(strLineBreak),
+                        this._preCode);
+
+                    dojo.place(
+                        dojo.create(
+                                "div",
+                                {
+                                    style: {
+                                        backgroundColor: (i % 2
+                                                                ? "#efefef"
+                                                                : "#edfded")
+                                    },
+                                    innerHTML: "&amp;nbsp;"
+                                }),
+                        this._divStripes);
+                }
+            }
+    });
+              </pre>
+            </li>
         </ol>
         <div class='footer'>
             Copyright (c) 2010-2011 Marat Nepomnyashy
