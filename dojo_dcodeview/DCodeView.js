@@ -39,11 +39,10 @@ dojo.declare(
     'dcodeview.DCodeView',
     [dijit._Widget, dijit._Templated],
     {
-        font_size:          "",
-        height:             "",
+        font_size: "",
+        height: "",
 
-        templateString:
-            [
+        templateString: [
                 "<div>",
                   "<span dojoAttachPoint='_spanBorder' style='",
                           "display: inline-block;",
