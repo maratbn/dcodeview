@@ -162,15 +162,14 @@ dojo.declare(
 
                     dojo.place(
                         dojo.create(
-                                "div",
-                                {
-                                    style: {
-                                        backgroundColor: (i % 2
-                                                                ? "#efefef"
-                                                                : "#edfded")
-                                    },
-                                    innerHTML: "&nbsp;"
-                                }),
+                            "div",
+                            {
+                                style: {
+                                    backgroundColor: (i % 2 ? "#efefef"
+                                                            : "#edfded")
+                                },
+                                innerHTML: "&nbsp;"
+                            }),
                         this._divStripes);
                 }
             }
