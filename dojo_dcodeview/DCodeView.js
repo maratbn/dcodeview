@@ -93,6 +93,7 @@ dojo.declare(
 
                 if (this.font_size) {
                     dojo.style(this.domNode, 'fontSize', this.font_size);
+                    dojo.style(this.domNode, 'lineHeight', '1.22em');
                 }
 
                 if (this.height) {
