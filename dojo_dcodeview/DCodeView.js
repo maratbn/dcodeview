@@ -69,7 +69,8 @@ dojo.declare(
                             "</pre>",
                           "</td>",
                           "<td align='left' valign='top'>",
-                            "<span style='position:relative;z-index:+1'>",
+                            "<span dojoAttachPoint='_elCodePane'",
+                                " style='position:relative;z-index:+1'>",
                               "<div dojoAttachPoint='_divStripes'",
                                   " style='position: relative; z-index: -1'>",
                                 "<div dojoAttachPoint='_divStripes'",
@@ -93,6 +94,8 @@ dojo.declare(
 
                 if (dojo.isIE <= 7) {
                     dojo.style(this._divStripes, 'display', 'none');
+                    dojo.style(this._elCodePane, 'position', "");
+                    dojo.style(this._elCodePane, 'zIndex', "");
                 }
 
                 if (this.font_size) {
